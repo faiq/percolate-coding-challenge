@@ -38,13 +38,13 @@ def process_lines(lines):
             user_keys = ['lastname', 'firstname', 'phonenumber', 'color',
                          'zipcode']
             for i, key in enumerate(user_keys):
-                user[key] = fields[i].rstrip()
+                user[key] = fields[i].strip()
         elif re.match('^([a-z])', last_word):
             # color format is Firstname, Lastname, 10013, 646 111 0101, Green
             user_keys = ['firstname', 'lastname', 'zipcode', 'phonenumber',
                          'color']
             for i, key in enumerate(user_keys):
-                user[key] = fields[i].rstrip()
+                user[key] = fields[i].strip()
         else:
             # phone format is Firstname Lastname, color, 10013, 646 111 0101
             if len(fields) > 1:
@@ -56,7 +56,7 @@ def process_lines(lines):
                 remaining_keys = ['color', 'zipcode', 'phonenumber']
                 for i in range(1, 4):
                     key = remaining_keys[i-1]
-                    user[key] = fields[i].rstrip()
+                    user[key] = fields[i].strip()
         if user and validate_phone_number(user['phonenumber']):
             user['phonenumber'] = normalize_phone_number(user['phonenumber'])
             out['entries'].append(user)
